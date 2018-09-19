@@ -1,0 +1,34 @@
+
+.audmusic{
+	position: absolute;
+}
+#div1{
+	position: absolute;
+	top:20px;
+	background-color: cornflowerblue;
+	width: 110px;
+	height: 22px;
+	color: white;
+}
+#div2{
+	color: white;
+	position: absolute;
+	left: 118px;
+	top:20px;
+	background-color:black;
+	width: 110px;
+	height: 22px;
+}
+#div3{
+	position:absolute;
+	top:50px;
+}
+#dd{
+	background-color: gainsboro;
+	width: 220px;
+	height: 200px;
+}
+#ddd #onemusic{
+	width:220px;
+	height: 110px;
+}

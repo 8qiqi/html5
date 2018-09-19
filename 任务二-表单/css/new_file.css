@@ -1,0 +1,28 @@
+.color{
+	color: red;
+}
+legend{
+	color: red;
+}
+fieldset{
+	width :400px;
+}
+#name,#email{
+	width: 150px;
+}
+#age{
+	width: 70px;
+}
+#card{
+	width: 150px;
+}
+ul li{
+	list-style-type: none;
+}
+ul{
+	/*display: none;*/
+}
+
+
+
+

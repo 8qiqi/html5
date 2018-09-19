@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/new_file.css" />
+		<script type="text/javascript">
+		    function $$(id){
+				return document.getElementById(id);
+			}
+			var lists;
+			var len;
+			window.onload=function(){
+				var objtxt=$$("email");
+				var objlist=$$("emaillists");
+		
+		        lists=objlist.getElementsByTagName("li");
+		        len=lists.length;
+		
+		        for(var i=1;i<len;i++){
+		            lists[i].onmousedown=function(){
+		                objtxt.value=this.textContent;
+		                objlist.style.display="none";
+		            }
+		        }
+		        objtxt.onfocus=function(){
+		            objlist.style.display="block";
+		        }
+		        objtxt.onblur=function(){
+		            objlist.style.display="none";
+		        }
+		
+		        objtxt.onkeyup=function(){
+		            var txt=this.value;
+		            var flag="";
+		            if(txt.indexOf("@")>0){
+		                flag=txt.substring(txt.indexOf("@")-1);//获取的输入的@开始的内容
+		                txt=txt.substring(0,txt.indexOf("@"));
+		            }else{
+		                flag="";
+		            }
+		            var val="";
+		            for(var i=1; i<len; i++){
+		                val=lists[i].textContent;
+		                val=val.substring(val.indexOf("@"));
+		                lists[i].textContent=txt+val;
+		            }
+		
+		            if(flag!=""){
+		                var reg=new RegExp(flag,"i");
+		                for(var i=1;i<len;i++){
+		                    if(reg.test(lists[i].textContent)){
+		                        lists[i].style.display="block";
+		                    }else{
+		                        lists[i].style.display="none";
+		                    }
+		                }
+		            }
+		        }
+		    }
+</script>
+	</head>
+	<body>
+		<h1 >请填写个人信息</h1>
+		<form>
+		<fieldset>
+			<legend >
+				基本信息
+			</legend>
+					姓名<input type="text" placeholder="请输入姓名" id="name" required="required"/><span class="color">*</span><br />
+				       年龄<input type="number" value="20" id="age"/>
+		</fieldset><br />
+		<fieldset>
+			<legend>
+				你想在哪里收到邮件？
+			</legend>
+				邮箱<input id="email" placeholder="请输入邮箱" type="text" name="email">
+				<span class="color">*</span><br />
+				<div id="emaillists" style="display: none;">
+				  <ul>
+				    <li class="on"></li>
+				    <li>@qq.com</li>
+					<li>@163.com</li>
+					<li>@gmail.com</li>
+					<li>@126.com</li>
+					<li>@yahoo.com.cn</li>
+				  </ul>
+				</div>
+		</fieldset><br />
+		<fieldset>
+			<legend>
+				收入情况
+			</legend>
+				月收入<select>
+					<option>20k+</option>
+					<option>40k+</option>
+					<option>50k+</option>
+					<option>80k+</option>
+					<option>100k+</option>
+				</select><br />
+				银行卡<input type="text" id="card"/>
+				有效期<input type="date"/>
+		</fieldset><br />
+		<fieldset>
+			<legend>
+				选取提交文件
+			</legend>
+				文件<input type="file"/>
+		</fieldset><br />
+		<input type="submit"/>
+		</form>
+	</body>
+</html>

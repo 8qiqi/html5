@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/new_file.css"/>
+	</head>
+	<body>
+		<div id="dd">
+			<div id="div1">在线音乐</div>
+			<div id="div2">本地音乐</div>
+			<div id="div3">
+				<span class="word">简单爱</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span value="start" class="start" >播放</span><br />
+				<span class="word">往后余生</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span value="start" class="start" startTime="0">播放</span>
+				<div id="ddd">
+					<audio src="简单爱.mp3" id="onemusic" class="audmusic">
+					</audio>
+					<audio src="往后余生.mp3" id="twomusic" class="audmusic">
+					</audio>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+			var onemusic=document.getElementById('onemusic');
+			var twomusic=document.getElementById('twomusic');			
+			var start=document.getElementsByClassName('start');
+			start[0].onclick=function(){
+				if(onemusic.paused){
+					onemusic.play();
+					onemusic.controls=true;
+					onemusic.style.display="block";
+					start.innerHTML='暂停';
+				}else{
+					onemusic.pause();
+					start.innerHTML='暂停';
+				    onemusic.controls=false;
+					onemusic.style.display="none";
+				}
+			}
+			start[1].onclick=function(){
+				if(twomusic.paused){
+					twomusic.play();
+					start.innerHTML='播放';
+					onemusic.controls=true;
+					onemusic.style.display="block";
+				}else{
+					twomusic.pause();
+					start.innerHTML='暂停';
+					onemusic.controls=false;
+					onemusic.style.display="none";
+				}
+			}
+		</script>
+</html>
