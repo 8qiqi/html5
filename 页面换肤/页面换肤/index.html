@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			fieldset{
+				width: 500px;
+			}
+			#text{
+				color: red;
+				font-weight: bolder;
+			}
+			#colors{
+				border: 1px solid gainsboro;
+				height: 50px;
+			}
+			#d1{
+				background-color: purple;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left: 20px;
+			}
+			#d2{
+				background-color: brown;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left:15px;
+			}
+			#d3{
+				background-color: chartreuse;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left:15px;
+			}
+			#d4{
+				background-color: coral;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left:15px;
+			}
+			#d5{
+				background-color: darkslategray;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left:15px;
+			}
+			#d6{
+				background-color: plum;
+				float: left;
+				width: 20px;
+				height: 25px;
+				margin-top: 15px;
+				margin-left:15px;
+			}
+			#words{
+				width : 440px;
+				height: 70px;
+				margin-left: 30px;
+				margin-top: 10px;
+				background-color: cornflowerblue;
+			}
+		</style>
+	</head>
+	<body>
+		<fieldset>
+			<legend id="text">页面换肤</legend>
+			<div id="colors">
+				<div id="d1"></div>
+				<div id="d2"></div>
+				<div id="d3"></div>
+				<div id="d4"></div>
+				<div id="d5"></div>
+				<div id="d6"></div>
+			</div>
+			<div id="words">
+				LocalStorage将数据保存在客户端本地的硬件设备中，即使浏览器被关闭了，该数据仍然存在，下次打开浏览器访问网站时仍然可以继续使用。
+			</div>
+		</fieldset>
+	</body>
+	<script>
+		function getDom(id) {
+            return document.getElementById(id);
+        }
+
+		for(let i=1;i<7;i++){				
+			getDom("d"+i).onclick=function(){			
+				getDom("d1").style.marginTop="5px";
+				getDom("d2").style.marginTop="5px";
+				getDom("d3").style.marginTop="5px";
+				getDom("d5").style.marginTop="5px";
+				getDom("d4").style.marginTop="5px";
+				getDom("d6").style.marginTop="5px";
+				var col=getStyle(getDom("d"+i),'backgroundColor');
+				getDom("words").style.backgroundColor=col;
+				this.style.marginTop="-1px";
+				localStorage.setItem('color',getStyle(getDom("d"+i),'backgroundColor'));
+			}	
+			var color = localStorage.getItem("color");
+			if(color){
+				getDom("words").style.backgroundColor = color;
+			}
+		}	
+		
+		function getStyle(obj,attr){
+			if(obj.currentStyle){
+				return obj.currentStyle[attr];
+			}else{
+				return getComputedStyle(obj,false)[attr];
+			}
+		}
+	</script>
+</html>
