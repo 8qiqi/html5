@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Read Image</title>
+  <style>
+    #dragBox {
+      position: absolute;
+      margin-top: 50px;
+      width: 250px;
+      height: 250px;
+      border: 5px solid gray;
+      border-radius: 8px;
+      background: lightyellow;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      text-align: center;
+    }
+
+ 	#dropBox{
+      position: absolute;
+      margin-left: 300px;
+      margin-top: 50px;
+      width: 250px;
+      height: 250px;
+      border: 5px solid gray;
+      border-radius: 8px;
+      background: lightyellow;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      text-align: center;
+       	}
+    input {
+      position: absolute;
+      margin-top: 320px;
+      margin-left: 300px;
+    }
+    #span1{
+    	position: absolute;
+    	margin-left: 80px;
+    	font-size: xx-large;
+    }
+    #span2{
+    	position: absolute;
+    	margin-left: 370px;
+    	font-size: xx-large;
+    }
+  </style>
+ <script>
+    var dropBox;
+ 
+    window.onload = function() {
+      dropBox = document.getElementById("dropBox");
+      dropBox.ondragenter = ignoreDrag;
+      dropBox.ondragover = ignoreDrag;
+      dropBox.ondrop = drop;
+    }
+ 
+    function ignoreDrag(e) {
+      //因为我们在处理拖放，所以应该确保没有其他元素会取得这个事件
+      e.stopPropagation();
+      e.preventDefault();
+    }
+ 
+    function drop(e) {
+      //取消事件传播及默认行为
+      e.stopPropagation();
+      e.preventDefault();
+      
+      //取得拖进来的文件
+      var data = e.dataTransfer;
+      var files = data.files;
+      //将其传给真正的处理文件的函数
+      processFiles(files);
+    }
+ 
+    function processFiles(files) {
+      var file = files[0];
+      var output = document.getElementById("fileOutput");
+      //创建FileReader
+      var reader = new FileReader();
+      //告诉它在准备好数据之后做什么
+      reader.onload = function (e) {
+        //使用图像URL来绘制dropBox的背景
+        dropBox.style.backgroundImage = "url('" + e.target.result + "')";
+      };
+      //读取图片
+      reader.readAsDataURL(file);
+    }
+ 
+    function showFileInput() {
+      var fileInput = document.getElementById("fileInput");
+      fileInput.click();
+    }
+		function allowDrag(ev){
+                ev.preventDefault();
+                console.log('34567334');
+           
+    						             
+		}
+            function drag(ev){
+                ev.dataTransfer.setData("Text",ev.target.id);
+                alert('qwefrgsdfgfdasdfhgfdsdf');
+                console.log('qwerty');
+            }
+            function drop(ev){
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("Text");
+//              ev.target.appendChild(document.getElementById(data));
+								var fileName=document.getElementById('fileInput').files[0].name;
+								console.log(fileName);
+								document.getElementById('dragBox').innerHTML='<img src="img/cat.jpg" width="250px" height="250px">';
+								document.getElementById('dropBox').innerHTML='<img src="img/a.png" width="250px" height="250px">';
+            }
+  </script>
+
+</head>
+ 
+<body>
+		<span id="span1">上传头像</span>
+		<span id="span2">上传头像</span>
+    <div id="dragBox" ondrop="drop(event)" ondragover="allowDrag(event)">
+      <!--<div>将图片拖放到此处...</div>-->
+    </div>
+    <div id="dropBox">
+    	
+    </div>
+    <img id="thumbnail" draggable="true" ondragstart="drag(event)" id="drag1">
+    <input id="fileInput" type="file" onchange="processFiles(this.files)" multiple="">
+    
+    
+      
+</body>
+
+</html>
