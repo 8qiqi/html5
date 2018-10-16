@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>画布-钟表</title>
+		<style>
+			#canvas1{
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas1" width="500" height="500">
+			您的浏览器不支持canvas，更新或更换浏览器！
+		</canvas>
+		<script>
+			var canvas1=document.getElementById('canvas1');
+			var context1=canvas1.getContext('2d');
+			
+			function draw(){
+				context1.clearRect(0,0,500,500);
+				var date=new Date();
+				var hour=date.getHours();
+				var min=date.getMinutes();
+				var sec=date.getSeconds();
+				hour=hour>12?hour-12:hour;//24点计时
+				
+				//绘制外层圆
+				context1.beginPath();
+				context1.strokeStyle="greenyellow";
+				context1.lineWidth=10;
+				context1.arc(250,250,150,0,2*Math.PI);
+				context1.stroke();
+				context1.closePath();
+				//绘制时针刻度
+				for(var i=0;i<12;i++){
+					context1.beginPath();
+					context1.lineWidth = 5;
+					context1.save();
+					context1.translate(250,250);
+					context1.rotate(30*i/180*Math.PI);
+					context1.moveTo(0,125);
+					context1.lineTo(0,140);
+					context1.strokeStyle="red";
+					context1.stroke();
+					context1.restore();
+					context1.closePath();
+				}
+				//绘制分针刻度
+				for(var i=0;i<60;i++){
+					context1.beginPath();
+					context1.lineWidth = 2;
+					context1.save();
+					context1.translate(250,250);
+					context1.rotate(6*i/180*Math.PI);
+					context1.moveTo(0,130);
+					context1.lineTo(0,140);
+					if(i==0||i==5||i==10||i==15||i==20||i==25||i==30||i==35||i==40||i==45||i==50||i==55){
+						context1.strokeStyle="red";
+					}else{
+						context1.strokeStyle="black";
+					}
+					
+					context1.stroke();
+					context1.restore();
+					context1.closePath();
+				}
+				//绘制数字
+				for(var i=1;i<13;i++){
+					context1.beginPath();
+					context1.save();
+					context1.translate(250,250);
+
+	//				context1.fontsize=10px;
+//	 				context1.font = "normal 15px STHeiti";
+//					context1.textAlign='center';
+//					context1.textBaseline='middle';
+					var x=Math.sin(i*30/180*Math.PI)*115;
+					var y=-Math.cos(i*30/180*Math.PI)*115;
+//					context1.rotate(-90/180*Math.PI);
+					context1.fillText(i,x,y);
+					context1.restore();
+					context1.closePath();
+				}
+				//绘制时针
+				context1.beginPath();
+				context1.save();
+				context1.translate(250,250);
+				
+				context1.rotate(((hour+min/60)+sec/3600)*30/180*Math.PI);
+				context1.moveTo(0,0);
+				context1.lineTo(0,-60);
+				context1.strokeStyle="purple";
+				context1.lineWidth=8;
+				context1.stroke();
+				context1.restore();
+				context1.closePath();
+				
+				//绘制分针
+				context1.beginPath();
+				context1.save();
+				context1.translate(250,250);
+				context1.rotate((min+sec/60)*6/180*Math.PI);
+				context1.moveTo(0,0);
+				context1.lineTo(0,-75);
+				context1.strokeStyle="pink";
+				context1.lineWidth=5;
+				context1.stroke();
+				context1.restore();
+				context1.closePath();
+				
+				//绘制秒针
+				context1.beginPath();
+				
+				context1.save();
+				context1.translate(250,250);
+				context1.rotate(sec*6*Math.PI/180);
+				context1.moveTo(0,0);
+				context1.lineTo(0,-95);
+				context1.strokeStyle="red";
+				context1.lineWidth=3;
+				context1.stroke();
+				context1.restore();
+				context1.closePath();
+				
+				//绘制秒针上面的圆圈
+				context1.beginPath();	
+				context1.save();
+				context1.translate(250,250);
+				context1.rotate(sec*6*Math.PI/180);
+				context1.arc(0,-80,2,0,2*Math.PI);
+				context1.fillStyle='black';
+				context1.strokeStyle='red';
+				context1.lineWidth=1;
+				context1.fill();
+				context1.stroke();
+				context1.restore();
+				context1.closePath();
+				//绘制中心圆圈
+				context1.beginPath();	
+				context1.save();
+				context1.translate(250,250);
+				context1.rotate(sec*6*Math.PI/180);
+				context1.arc(0,-0,5,0,2*Math.PI);
+				context1.fillStyle='black';
+				context1.strokeStyle='red';
+				context1.lineWidth=1;
+				context1.fill();
+				context1.stroke();
+				context1.restore();
+				context1.closePath();
+			}
+			
+			setInterval(draw,1000);	
+		</script>
+	</body>
+</html>
